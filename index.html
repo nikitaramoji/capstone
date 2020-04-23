@@ -30,7 +30,7 @@ Promise.all([
   svg.attr('width', width).attr('height', height)
 
   var simulation = d3
-    .forceSimulation()
+    .forceSimulation(nodes_data)
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
@@ -58,6 +58,14 @@ Promise.all([
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
 
+  var links = svg.append("g")
+    .attr("class", "links")
+    .selectAll("line")
+    .data(links_data)
+    .enter().append("link")
+      .attr("r", getNodeSize)
+      .attr("fill", getNodeColor)
+
   var labels = svg.append("g")
     .attr("class", "text")
     .selectAll("text")
@@ -71,7 +79,8 @@ Promise.all([
       .attr("dy", 2)
 
 
-  simulation.nodes(nodes_data).on('tick', () => {
+  simulation.on('tick', () => {
+
     nodes
       .attr('cx', function (node) { return node.x })
       .attr('cy', function (node) { return node.y })
