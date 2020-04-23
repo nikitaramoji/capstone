@@ -62,7 +62,8 @@ Promise.all([
     .selectAll("line")
     .data(links_data)
     .enter().append("link")
-      .attr("stroke-width", 1.0);
+      .attr("color", 'black')
+      .attr("stroke-width", 10.0);
 
   var labels = svg.append("g")
     .attr("class", "text")
@@ -82,7 +83,7 @@ Promise.all([
       .attr('x1', function (link) { return link.company.x })
       .attr('y1', function (link) { return link.company.y })
       .attr('x2', function (link) {
-        console.log(link)
+         console.log(link.candidate_name.x)
          return link.candidate_name.x
        })
       .attr('y2', function (link) { return link.candidate_name.y })
