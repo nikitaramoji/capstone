@@ -64,6 +64,7 @@ Promise.all([
     .data(nodes_data)
     .enter().append("text")
       .text(function (node) { return  node.label })
+      .attr("font-family", "Roboto")
   	  .attr("font-size", 10)
       .attr("color", 'black')
   	  .attr("dx", 10)
