@@ -66,8 +66,11 @@ Promise.all([
   	  .attr("dx", 15)
       .attr("dy", 4)
 
-  simulation.nodes(company_data).on('tick', () => {
+  simulation.nodes(group_data).on('tick', () => {
     company_nodes
+      .attr('cx', function (node) { return node.x })
+      .attr('cy', function (node) { return node.y })
+    rep_nodes
       .attr('cx', function (node) { return node.x })
       .attr('cy', function (node) { return node.y })
     text
