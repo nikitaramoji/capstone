@@ -40,7 +40,7 @@ Promise.all([
     .selectAll("circle")
     .data(nodes_data)
     .enter().append("circle")
-      .attr("r", "20")
+      .attr("r", "3")
       .attr("fill", getNodeColor)
 
   var text = svg.append("g")
@@ -49,9 +49,9 @@ Promise.all([
     .data(nodes_data)
     .enter().append("text")
       .text(function (node) { return  node.label })
-  	  .attr("font-size", 5)
+  	  .attr("font-size", 10)
       .attr("color", 'black')
-  	  .attr("dx", 5)
+  	  .attr("dx", 10)
       .attr("dy", 2)
 
   simulation.nodes(nodes_data).on('tick', () => {
