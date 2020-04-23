@@ -33,6 +33,7 @@ Promise.all([
       return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
     }
     console.log(node.candidatewinlost)
+    console.log(node.candidatewinlost === 0 ? 'red' : 'green')
     return node.candidatewinlost === 0 ? 'red' : 'green'
   }
 
