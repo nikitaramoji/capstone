@@ -89,16 +89,10 @@ Promise.all([
       .attr('x', function (node) { return node.x })
       .attr('y', function (node) { return node.y })
     links
-      .attr('x1', function (link) {
-         console.log(link.company.x)
-         return link.company.x
-       })
-      .attr('y1', function (link) { return link.company.y })
-      .attr('x2', function (link) {
-         console.log(link.candidate_name.x)
-         return link.candidate_name.x
-       })
-      .attr('y2', function (link) { return link.candidate_name.y })
+      .attr('x1', function (link) { return link.source.x })
+      .attr('y1', function (link) { return link.source.y })
+      .attr('x2', function (link) { return link.target.x })
+      .attr('y2', function (link) { return link.target.y })
   })
   simulation.force("link").links(links_data)
 })
