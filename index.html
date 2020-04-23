@@ -27,7 +27,6 @@ Promise.all([
   // simulation setup with all forces
   var simulation = d3
     .forceSimulation()
-    .force.gravity(0)
     .force('charge', d3.forceManyBody().strength(-120))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
@@ -36,7 +35,7 @@ Promise.all([
   }
 
   function getRepNodeColor(node) {
-    return node.candidatewinlost === 0 ? 'red' : 'green'
+    return node.candidatewinlost === 0 ? 'red' : 'black'
   }
 
   var company_nodes = svg.append("g")
