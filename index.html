@@ -39,8 +39,6 @@ Promise.all([
     if (node.type == 0) {
       return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
     }
-    console.log(node.candidatewinlost)
-    console.log(node.candidatewinlost > 0 ? 'green' : 'red')
     return node.candidatewinlost > 0 ? 'green' : 'red'
   }
 
@@ -83,7 +81,10 @@ Promise.all([
     links
       .attr('x1', function (link) { return link.company.x })
       .attr('y1', function (link) { return link.company.y })
-      .attr('x2', function (link) { return link.candidate_name.x })
+      .attr('x2', function (link) {
+        console.log(link)
+         return link.candidate_name.x
+       })
       .attr('y2', function (link) { return link.candidate_name.y })
     nodes
       .attr('cx', function (node) { return node.x })
