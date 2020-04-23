@@ -46,7 +46,7 @@ Promise.all([
 
   function getNodeSize(node) {
     if (node.type == 0) {
-      return str(5 + 2*abs(node.percentchangeinstockprice))
+      return num.toString(5 + 2*abs(node.percentchangeinstockprice))
     }
     return '5'
   }
