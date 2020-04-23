@@ -1,4 +1,4 @@
-type,label,candidatewinlost,percentchangeinstockprice
+type,id,candidatewinlost,percentchangeinstockprice
 1,"Clinton, Hillary",0,
 1,"Kirk, Mark",0,
 1,"Dold, Bob",0,

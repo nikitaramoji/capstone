@@ -31,7 +31,7 @@ Promise.all([
 
   var linkForce = d3
     .forceLink()
-    .id(function (link) { return link.label })
+    .id(function (link) { return link.id })
     .strength(function (link) { return link.strength })
 
   var simulation = d3
@@ -75,7 +75,7 @@ Promise.all([
     .selectAll("text")
     .data(nodes_data)
     .enter().append("text")
-      .text(function (node) { return  node.label })
+      .text(function (node) { return  node.id })
       .attr("font-family", "Roboto")
   	  .attr("font-size", 10)
       .attr("color", 'black')
@@ -91,7 +91,10 @@ Promise.all([
       .attr('x', function (node) { return node.x })
       .attr('y', function (node) { return node.y })
     links
-      .attr('x1', function (link) { return link.company.x })
+      .attr('x1', function (link) {
+         console.log(link.company.x)
+         return link.company.x
+       })
       .attr('y1', function (link) { return link.company.y })
       .attr('x2', function (link) {
          console.log(link.candidate_name.x)
