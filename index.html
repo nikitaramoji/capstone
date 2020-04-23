@@ -44,12 +44,19 @@ Promise.all([
     return node.candidatewinlost > 0 ? 'green' : 'red'
   }
 
+  function getNodeSize(node) {
+    if (node.type == 0) {
+      return str(5 + 2*abs(node.percentchangeinstockprice))
+    }
+    return '5'
+  }
+
   var nodes = svg.append("g")
     .attr("class", "nodes")
     .selectAll("circle")
     .data(nodes_data)
     .enter().append("circle")
-      .attr("r", "5")
+      .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
 
   var text = svg.append("g")
