@@ -32,7 +32,6 @@ Promise.all([
   var linkForce = d3
     .forceLink()
     .id(function (link) { return link.id })
-    .strength(function (link) { return link.strength })
 
   var simulation = d3
     .forceSimulation(nodes_data)
@@ -82,7 +81,6 @@ Promise.all([
   	  .attr("dx", 10)
       .attr("dy", 2)
 
-
   simulation.on('tick', () => {
     nodes
       .attr('cx', function (node) { return node.x })
@@ -102,9 +100,7 @@ Promise.all([
        })
       .attr('y2', function (link) { return link.candidate_name.y })
   })
-
-  simulation.force("link").links(links)
-
+  simulation.force("link").links(links_data)
 })
 
 </script>
