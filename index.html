@@ -31,6 +31,7 @@ Promise.all([
 
   var simulation = d3
     .forceSimulation(nodes_data)
+    .force('link', d3.forceLink(links).id(link => link.label))
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
@@ -63,8 +64,7 @@ Promise.all([
     .selectAll("line")
     .data(links_data)
     .enter().append("link")
-      .attr("r", getNodeSize)
-      .attr("fill", getNodeColor)
+      .attr("stroke-width", 1.0);
 
   var labels = svg.append("g")
     .attr("class", "text")
@@ -80,7 +80,11 @@ Promise.all([
 
 
   simulation.on('tick', () => {
-
+    links
+      .attr('x1', function (link) { return link.company.x }
+      .attr('y1', function (link) { return link.company.y }
+      .attr('x2', function (link) { return link.candidate_name.x }
+      .attr('y2', function (link) { return link.candidate_name.y }
     nodes
       .attr('cx', function (node) { return node.x })
       .attr('cy', function (node) { return node.y })
