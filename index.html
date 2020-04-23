@@ -10,14 +10,16 @@
 <script>
 
 Promise.all([
-  d3.csv("data/company_nodes.csv"),
-  d3.csv("data/rep_nodes.csv"),
+  // d3.csv("data/company_nodes.csv"),
+  // d3.csv("data/rep_nodes.csv"),
+  d3.csv("data/nodes.csv")
   d3.csv("data/links.csv"),
 ]).then(function(data) {
-  var company_data = data[0]
-  var rep_data = data[1]
-  var nodes_data = [company_data, rep_data]
-  var links_data = data[2]
+  // var company_data = data[0]
+  // var rep_data = data[1]
+  // var nodes_data = [company_data, rep_data]
+  var nodes_data = data[0]
+  var links_data = data[1]
 
   var width = window.innerWidth
   var height = window.innerHeight
@@ -31,29 +33,36 @@ Promise.all([
     .force('charge', d3.forceManyBody().strength(-120))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
-  function getCompanyNodeColor(node) {
-    return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
-  }
-
-  function getRepNodeColor(node) {
+  function getNodeColor(node) {
+    if (node.type == 0) {
+      return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
+    }
     return node.candidatewinlost === 0 ? 'red' : 'green'
   }
 
-  var company_nodes = svg.append("g")
-    .attr("class", "company_nodes")
+  var nodes = svg.append("g")
+    .attr("class", "nodes")
     .selectAll("circle")
-    .data(company_data)
+    .data(nodes_data)
     .enter().append("circle")
-      .attr("r", 10)
-      .attr("fill", getCompanyNodeColor)
+      .attr("r", "20")
+      .attr("fill", getNodeColor)
 
-  var rep_nodes = svg.append("g")
-    .attr("class", "rep_nodes")
-    .selectAll("circle")
-    .data(rep_data)
-    .enter().append("circle")
-      .attr("r", 10)
-      .attr("fill", getRepNodeColor)
+  // var company_nodes = svg.append("g")
+  //   .attr("class", "company_nodes")
+  //   .selectAll("circle")
+  //   .data(company_data)
+  //   .enter().append("circle")
+  //     .attr("r", 10)
+  //     .attr("fill", getCompanyNodeColor)
+  //
+  // var rep_nodes = svg.append("g")
+  //   .attr("class", "rep_nodes")
+  //   .selectAll("circle")
+  //   .data(rep_data)
+  //   .enter().append("circle")
+  //     .attr("r", 10)
+  //     .attr("fill", getRepNodeColor)
 
   var text = svg.append("g")
     .attr("class", "text")
@@ -63,14 +72,11 @@ Promise.all([
       .text(function (node) { return  node.label })
   	  .attr("font-size", 20)
       .attr("color", 'black')
-  	  .attr("dx", 15)
-      .attr("dy", 4)
+  	  .attr("dx", 10)
+      .attr("dy", 5)
 
-  simulation.nodes(group_data).on('tick', () => {
-    company_nodes
-      .attr('cx', function (node) { return node.x })
-      .attr('cy', function (node) { return node.y })
-    rep_nodes
+  simulation.nodes(nodes_data).on('tick', () => {
+    nodes
       .attr('cx', function (node) { return node.x })
       .attr('cy', function (node) { return node.y })
     text
@@ -78,15 +84,14 @@ Promise.all([
       .attr('y', function (node) { return node.y })
   })
 
-
-  simulation.nodes(rep_data).on('tick', () => {
-    rep_nodes
-      .attr('cx', function (node) { return node.x })
-      .attr('cy', function (node) { return node.y })
-    text
-      .attr('x', function (node) { return node.x })
-      .attr('y', function (node) { return node.y })
-  })
+  // simulation.nodes(rep_data).on('tick', () => {
+  //   rep_nodes
+  //     .attr('cx', function (node) { return node.x })
+  //     .attr('cy', function (node) { return node.y })
+  //   text
+  //     .attr('x', function (node) { return node.x })
+  //     .attr('y', function (node) { return node.y })
+  // })
 })
 
 </script>
