@@ -31,7 +31,7 @@ Promise.all([
 
   var linkForce = d3
     .forceLink()
-    .id(function (link) { return link.id })
+    .id(function (link) { return link.label })
     .strength(function (link) { return link.strength })
 
   var simulation = d3
