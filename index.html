@@ -78,8 +78,7 @@ Promise.all([
     .selectAll("line")
     .data(links_data)
     .enter().append("line")
-      .attr("color", 'black')
-  	  .attr("stroke", "rgba(50, 50, 50, 0.2)")
+  	  .attr("stroke", 'black')
       .attr("stroke-width", 3.0)
 
   simulation.on('tick', () => {
