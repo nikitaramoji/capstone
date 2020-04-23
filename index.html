@@ -84,6 +84,12 @@ Promise.all([
 
 
   simulation.on('tick', () => {
+    nodes
+      .attr('cx', function (node) { return node.x })
+      .attr('cy', function (node) { return node.y })
+    labels
+      .attr('x', function (node) { return node.x })
+      .attr('y', function (node) { return node.y })
     links
       .attr('x1', function (link) { return link.company.x })
       .attr('y1', function (link) { return link.company.y })
@@ -92,12 +98,6 @@ Promise.all([
          return link.candidate_name.x
        })
       .attr('y2', function (link) { return link.candidate_name.y })
-    nodes
-      .attr('cx', function (node) { return node.x })
-      .attr('cy', function (node) { return node.y })
-    labels
-      .attr('x', function (node) { return node.x })
-      .attr('y', function (node) { return node.y })
   })
 
   simulation.force("link").links(links)
