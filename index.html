@@ -32,6 +32,7 @@ Promise.all([
     if (node.type == 0) {
       return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
     }
+    console.log(node.candidatewinlost)
     return node.candidatewinlost === 0 ? 'red' : 'green'
   }
 
@@ -63,14 +64,6 @@ Promise.all([
       .attr('y', function (node) { return node.y })
   })
 
-  // simulation.nodes(rep_data).on('tick', () => {
-  //   rep_nodes
-  //     .attr('cx', function (node) { return node.x })
-  //     .attr('cy', function (node) { return node.y })
-  //   text
-  //     .attr('x', function (node) { return node.x })
-  //     .attr('y', function (node) { return node.y })
-  // })
 })
 
 </script>
