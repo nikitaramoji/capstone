@@ -59,7 +59,7 @@ Promise.all([
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
 
-  var text = svg.append("g")
+  var labels = svg.append("g")
     .attr("class", "text")
     .selectAll("text")
     .data(nodes_data)
@@ -70,11 +70,12 @@ Promise.all([
   	  .attr("dx", 10)
       .attr("dy", 2)
 
+
   simulation.nodes(nodes_data).on('tick', () => {
     nodes
       .attr('cx', function (node) { return node.x })
       .attr('cy', function (node) { return node.y })
-    text
+    labels
       .attr('x', function (node) { return node.x })
       .attr('y', function (node) { return node.y })
   })
