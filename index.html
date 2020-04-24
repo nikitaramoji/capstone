@@ -48,6 +48,7 @@ Promise.all([
         neighbors.push(link.source.id)
       }
     }
+    return neighbors
   }
 
   function isNeighborLink(node, link) {
