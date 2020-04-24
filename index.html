@@ -112,8 +112,8 @@ Promise.all([
     .enter().append("circle")
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
-      .call(drag(simulation))
       .on('hover', selectNode)
+      .call(drag(simulation))
 
   var links = svg.append("g")
     .attr("class", "links")
