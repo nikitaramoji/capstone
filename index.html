@@ -35,7 +35,7 @@ Promise.all([
 
   var simulation = d3
     .forceSimulation(nodes_data)
-    .force('link', linkForce)
+    .force('link', d3.forceLink().id(function (link) { return link.id }))
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
