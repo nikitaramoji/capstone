@@ -22,8 +22,6 @@ Promise.all([
   var width = window.innerWidth
   var height = window.innerHeight
 
-  var neighbors = []
-
   var svg = d3.select('svg')
   svg.attr('width', width).attr('height', height)
 
@@ -38,41 +36,28 @@ Promise.all([
     .force('center', d3.forceCenter(width / 2, height / 2))
 
 
-  function colorNeighorLinks(node) {
-
-  }
-  function getNeighbors(node) {
-    neighbors.push(node)
-    for (link in links_data) {
-      if(node.id == link.source && !neighbors.include(link.target)) {
-        neighbors.push(link.target)
-        neighbors.concat(getNeighbors(link.target))
-      } else if(node.id == link.target && !neighbors.include(link.source)) {
-        neighbors.push(link.source)
-        neighbors.concat(getNeighbors())
-      }
-    }
-    console.log(neighbors)
-    return neighbors
-  }
-
   function isNeighborLink(node, link) {
-    return link.target.id === node.id || link.source.id === node.id
+    if(link.target.id === node.id) {
+      selectNode(link.source.id)
+      return true
+    } else if(link.source.id == node.id) {
+      selectNode(link.target.id)
+      return true
+    }
+    return false
   }
 
   function getLinkColor(node, link) {
     return isNeighborLink(node, link) ? 'black' : 'gray'
   }
-
-  function getLinkWidth(node, link) {
-    return isNeighborLink(node, link) ? '4.0' : '1.0'
-  }
+  //
+  // function getLinkWidth(node, link) {
+  //   return isNeighborLink(node, link) ? '4.0' : '1.0'
+  // }
 
   function selectNode(node) {
-    var neighbors = getNeighbors(node)
     links.attr('stroke', function (link) { return getLinkColor(node, link) })
-    links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
-    visited = []
+    // links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
   }
 
   function getNodeColor(node) {
