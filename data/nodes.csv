@@ -1,11 +1,11 @@
 type,id,candidatewinlost,percentchangeinstockprice
-1,"Clinton, Hillary",0,
-1,"Kirk, Mark",0,
-1,"Dold, Bob",0,
-1,"Ryan, Paul",1,
-1,"Hoyer, Steny H",1,
-1,"Upton, Fred",1,
-1,"Moulton, Seth",1,
-0,ABT,,1.135790005
-0,AEP,,-2.60772777
-0,BMY,,7.668770319
+1,"Clinton, Hillary",0,[ABT, AEP]
+1,"Kirk, Mark",0,[ABT]
+1,"Dold, Bob",0,[ABT]
+1,"Ryan, Paul",1,[ABT]
+1,"Hoyer, Steny H",1,[AEP]
+1,"Upton, Fred",1,[AEP]
+1,"Moulton, Seth",1,[BMY]
+0,ABT,,1.135790005,["Clinton, Hillary","Kirk, Mark","Dold, Bob","Ryan, Paul"]
+0,AEP,,-2.60772777,["Clinton, Hillary","Hoyer, Steny H","Upton, Fred"]
+0,BMY,,7.668770319,["Moulton, Seth"]

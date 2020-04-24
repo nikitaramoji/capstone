@@ -35,8 +35,8 @@ Promise.all([
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
-
   function isNeighborLink(node, link) {
+    //todo fix
     return (link.target.id == node.id || link.source.id == node.id)
   }
 
