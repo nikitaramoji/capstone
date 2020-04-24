@@ -57,13 +57,13 @@ Promise.all([
   }
 
   function getLinkColor(node, link) {
-    return isNeighborLink(node, link) ? 'green' : '#E5E5E5'
+    return isNeighborLink(node, link) ? 'green' : 'gray'
   }
 
   function selectNode(selectedNode) {
     console.log(selectedNode.id)
     var neighbors = getNeighbors(selectedNode)
-    linkElements.attr('stroke', function (link) { return getLinkColor(selectedNode, link) })
+    links.attr('stroke', function (link) { return getLinkColor(selectedNode, link) })
   }
 
   function getNodeColor(node) {
@@ -112,8 +112,8 @@ Promise.all([
     .enter().append("circle")
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
-      .on('hover', selectNode)
       .call(drag(simulation))
+      .on('click', selectNode)
 
   var links = svg.append("g")
     .attr("class", "links")
