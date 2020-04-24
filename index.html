@@ -61,10 +61,15 @@ Promise.all([
     return isNeighborLink(node, link) ? 'black' : 'gray'
   }
 
+  function getLinkWidth(node, link) {
+    return isNeighborLink(node, link) ? '4.0' : '1.0'
+  }
+
   function selectNode(node) {
     console.log("hi")
     var neighbors = getNeighbors(node)
     links.attr('stroke', function (link) { return getLinkColor(node, link) })
+    links.attr('stroke', function (link) { return getLinkWidth(node, link) })
   }
 
   function getNodeColor(node) {
@@ -112,7 +117,7 @@ Promise.all([
     .data(links_data)
     .enter().append("line")
       .attr("stroke", 'gray')
-      .attr("stroke-width", 3.0)
+      .attr("stroke-width", 1.0)
 
   var nodes = svg.append("g")
     .attr("class", "nodes")
