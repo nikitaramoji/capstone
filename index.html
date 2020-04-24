@@ -121,7 +121,7 @@ Promise.all([
     .enter().append("circle")
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
-      .on('hover', selectNode)
+      .on('click', selectNode)
       .call(drag(simulation))
 
   var labels = svg.append("g")
