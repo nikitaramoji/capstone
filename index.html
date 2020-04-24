@@ -62,7 +62,6 @@ Promise.all([
 
   function selectNode(node) {
     console.log("hi")
-    console.log(selectedNode.id)
     var neighbors = getNeighbors(node)
     links.attr('stroke', function (link) { return getLinkColor(node, link) })
   }
