@@ -60,11 +60,11 @@ Promise.all([
     return isNeighborLink(node, link) ? 'black' : 'gray'
   }
 
-  function selectNode(selectedNode) {
+  function selectNode(node) {
     console.log("hi")
     console.log(selectedNode.id)
-    var neighbors = getNeighbors(selectedNode)
-    links.attr('stroke', function (link) { return getLinkColor(selectedNode, link) })
+    var neighbors = getNeighbors(node)
+    links.attr('stroke', function (link) { return getLinkColor(node, link) })
   }
 
   function getNodeColor(node) {
