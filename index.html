@@ -56,8 +56,8 @@ Promise.all([
   // }
 
   function selectNode(node) {
-    links.attr('stroke', function (link) { return getLinkColor(node, link) })
-    // links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
+    // links.attr('stroke', function (link) { return getLinkColor(node, link) })
+    links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
   }
 
   function getNodeColor(node) {
