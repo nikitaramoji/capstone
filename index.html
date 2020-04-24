@@ -39,6 +39,27 @@ Promise.all([
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
+  function getNeighbors(node) {
+    return links.reduce(function (neighbors, link) {
+        if (link.target.id === node.id) {
+          neighbors.push(link.source.id)
+        } else if (link.source.id === node.id) {
+          neighbors.push(link.target.id)
+        }
+        return neighbors
+      },
+      [node.id]
+    )
+  }
+
+  function isNeighborLink(node, link) {
+    return link.target.id === node.id || link.source.id === node.id
+  }
+
+  function getLinkColor(node, link) {
+    return isNeighborLink(node, link) ? 'green' : '#E5E5E5'
+  }
+
   function getNodeColor(node) {
     if (node.type == 0) {
       return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
@@ -52,7 +73,7 @@ Promise.all([
     }
     return '5'
   }
-  
+
   drag = simulation => {
 
   function dragstarted(d) {
@@ -77,6 +98,10 @@ Promise.all([
       .on("drag", dragged)
       .on("end", dragended);
 }
+
+  function findNeighbors(node) {
+
+  }
 
   var nodes = svg.append("g")
     .attr("class", "nodes")
