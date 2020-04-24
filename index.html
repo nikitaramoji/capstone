@@ -50,10 +50,10 @@ Promise.all([
   function getLinkColor(node, link) {
     return isNeighborLink(node, link) ? 'black' : 'gray'
   }
-  //
-  // function getLinkWidth(node, link) {
-  //   return isNeighborLink(node, link) ? '4.0' : '1.0'
-  // }
+  
+  function getLinkWidth(node, link) {
+    return isNeighborLink(node, link) ? '4.0' : '1.0'
+  }
 
   function selectNode(node) {
     // links.attr('stroke', function (link) { return getLinkColor(node, link) })
