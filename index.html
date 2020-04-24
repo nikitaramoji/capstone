@@ -22,6 +22,8 @@ Promise.all([
   var width = window.innerWidth
   var height = window.innerHeight
 
+  var neighbors = []
+
   var svg = d3.select('svg')
   svg.attr('width', width).attr('height', height)
 
@@ -35,14 +37,20 @@ Promise.all([
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
+
+  function colorNeighorLinks(node) {
+
+  }
   function getNeighbors(node) {
-    neighbors = []
+    neighbors.push(node)
     for (link in links_data) {
       console.log(link)
-      if(node.id == link.source) {
+      if(node.id == link.source && !neighbors.include(link.target)) {
         neighbors.push(link.target)
-      } else if(node.id == link.target) {
+        neighbors.concat(getNeighbors(link.target))
+      } else if(node.id == link.target && !neighbors.include(link.source)) {
         neighbors.push(link.source)
+        neighbors.concat(getNeighbors())
       }
     }
     console.log(neighbors)
@@ -66,6 +74,7 @@ Promise.all([
     var neighbors = getNeighbors(node)
     links.attr('stroke', function (link) { return getLinkColor(node, link) })
     links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
+    visited = []
   }
 
   function getNodeColor(node) {
