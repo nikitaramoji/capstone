@@ -40,16 +40,14 @@ Promise.all([
     .force('center', d3.forceCenter(width / 2, height / 2))
 
   function getNeighbors(node) {
-    return links.reduce(function (neighbors, link) {
-        if (link.target.id === node.id) {
-          neighbors.push(link.source.id)
-        } else if (link.source.id === node.id) {
-          neighbors.push(link.target.id)
-        }
-        return neighbors
-      },
-      [node.id]
-    )
+    neighbors = []
+    for (link in links) {
+      if(node.id == link.source.id) {
+        neighbors.push(link.target.id)
+      } else if(node.id == link.target.id) {
+        neighbors.push(link.source.id)
+      }
+    }
   }
 
   function isNeighborLink(node, link) {
@@ -104,10 +102,6 @@ Promise.all([
       .on("end", dragended);
 }
 
-  function findNeighbors(node) {
-
-  }
-
   var nodes = svg.append("g")
     .attr("class", "nodes")
     .selectAll("circle")
@@ -116,7 +110,7 @@ Promise.all([
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
       .call(drag(simulation))
-      .on('click', selectNode)
+      .on('hover', selectNode)
 
   var links = svg.append("g")
     .attr("class", "links")
