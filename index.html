@@ -44,7 +44,6 @@ Promise.all([
   function getNeighbors(node) {
     neighbors.push(node)
     for (link in links_data) {
-      console.log(link)
       if(node.id == link.source && !neighbors.include(link.target)) {
         neighbors.push(link.target)
         neighbors.concat(getNeighbors(link.target))
@@ -70,7 +69,6 @@ Promise.all([
   }
 
   function selectNode(node) {
-    console.log("hi")
     var neighbors = getNeighbors(node)
     links.attr('stroke', function (link) { return getLinkColor(node, link) })
     links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
