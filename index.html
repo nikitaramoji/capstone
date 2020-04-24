@@ -37,20 +37,13 @@ Promise.all([
 
 
   function isNeighborLink(node, link) {
-    if(link.target.id === node.id) {
-      selectNode(link.source.id)
-      return true
-    } else if(link.source.id == node.id) {
-      selectNode(link.target.id)
-      return true
-    }
-    return false
+    return (link.target.id == node.id || link.source.id == node.id)
   }
 
   function getLinkColor(node, link) {
     return isNeighborLink(node, link) ? 'black' : 'gray'
   }
-  
+
   function getLinkWidth(node, link) {
     return isNeighborLink(node, link) ? '4.0' : '1.0'
   }
