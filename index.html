@@ -5,12 +5,23 @@
 <body>
 </body>
 
-<svg width="960" height="600"></svg>
+<svg width="960" height="600">
+<button id="winLossButton" onclick="toggleWinLoss()">Won</button>
+</svg>
 <?php Header("Cache-Control: max-age=3000, must-revalidate"); ?>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <script>
+
+function toggleWinLoss() {
+  var x = document.getElementById("winLossButton");
+  if (x.innerHTML === "Won") {
+    x.innerHTML = "Lost";
+  } else {
+    x.innerHTML = "Won";
+  }
+}
 
 Promise.all([
   d3.csv("data/nodes.csv"),
