@@ -13,135 +13,137 @@
 
 <script>
 
-Promise.all([
-  d3.csv("data/nodes.csv"),
-  d3.csv("data/links.csv"),
-]).then(function(data) {
-  var nodes_data = data[0]
-  var links_data = data[1]
-
-  var width = window.innerWidth
-  var height = window.innerHeight
-
-  var svg = d3.select('svg')
-  svg.attr('width', width).attr('height', height)
-
-  function toggleWinLoss() {
-    var x = document.getElementById("winLossButton");
-    if (x.innerHTML === "Won") {
-      x.innerHTML = "Lost";
-    } else {
-      x.innerHTML = "Won";
-    }
+function toggleWinLoss() {
+  var x = document.getElementById("winLossButton");
+  if (x.innerHTML === "Won") {
+    x.innerHTML = "Lost";
+  } else {
+    x.innerHTML = "Won";
   }
-
-  var linkForce = d3
-    .forceLink()
-    .id(function (link) { return link.id })
-
-  var simulation = d3
-    .forceSimulation(nodes_data)
-    .force('link', d3.forceLink().id(function (link) { return link.id }))
-    .force('charge', d3.forceManyBody().strength(-100))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-
-  function isNeighborLink(node, link) {
-    //todo fix
-    return (link.target.id == node.id || link.source.id == node.id)
-  }
-
-  function getLinkWidth(node, link) {
-    return isNeighborLink(node, link) ? '0.3' : '0.0'
-  }
-
-  function selectNode(node) {
-    links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
-  }
-
-  function getNodeColor(node) {
-    if (node.type == 0) {
-      return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
-    }
-    return node.candidatewinlost > 0 ? 'green' : 'red'
-  }
-
-  function getNodeSize(node) {
-    if (node.type == 0) {
-      return (5 + 2*Math.abs(node.percentchangeinstockprice)).toString()
-    }
-    return '2'
-  }
-
-  drag = simulation => {
-
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-
-  function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  }
-
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
-
-  return d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
 }
 
-  var links = svg.append("g")
-    .attr("class", "links")
-    .selectAll("line")
-    .data(links_data)
-    .enter().append("line")
-      .attr("stroke", 'gray')
-      .attr("stroke-width", 0.0)
+function showData() {
+  Promise.all([
+    d3.csv("data/nodes.csv"),
+    d3.csv("data/links.csv"),
+  ]).then(function(data) {
+    var nodes_data = data[0]
+    var links_data = data[1]
 
-  var nodes = svg.append("g")
-    .attr("class", "nodes")
-    .selectAll("circle")
-    .data(nodes_data)
-    .enter().append("circle")
-      .attr("r", getNodeSize)
-      .attr("fill", getNodeColor)
-      .on('click', selectNode)
-      .call(drag(simulation))
+    var width = window.innerWidth
+    var height = window.innerHeight
 
-  var labels = svg.append("g")
-    .attr("class", "text")
-    .selectAll("text")
-    .data(nodes_data)
-    .enter().append("text")
-      .text(function (node) { return  node.id })
-      .attr("font-family", "Roboto")
-  	  .attr("font-size", 10)
-      .attr("color", 'black')
-  	  .attr("dx", 10)
-      .attr("dy", 2)
+    var svg = d3.select('svg')
+    svg.attr('width', width).attr('height', height)
 
-  simulation.on('tick', () => {
-    nodes
-      .attr('cx', function (node) { return node.x })
-      .attr('cy', function (node) { return node.y })
-    labels
-      .attr('x', function (node) { return node.x })
-      .attr('y', function (node) { return node.y })
-    links
-      .attr('x1', function (link) { return link.source.x })
-      .attr('y1', function (link) { return link.source.y })
-      .attr('x2', function (link) { return link.target.x })
-      .attr('y2', function (link) { return link.target.y })
+    var linkForce = d3
+      .forceLink()
+      .id(function (link) { return link.id })
+
+    var simulation = d3
+      .forceSimulation(nodes_data)
+      .force('link', d3.forceLink().id(function (link) { return link.id }))
+      .force('charge', d3.forceManyBody().strength(-100))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+
+    function isNeighborLink(node, link) {
+      //todo fix
+      return (link.target.id == node.id || link.source.id == node.id)
+    }
+
+    function getLinkWidth(node, link) {
+      return isNeighborLink(node, link) ? '0.3' : '0.0'
+    }
+
+    function selectNode(node) {
+      links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
+    }
+
+    function getNodeColor(node) {
+      if (node.type == 0) {
+        return node.percentchangeinstockprice > 0 ? 'blue' : 'yellow'
+      }
+      return node.candidatewinlost > 0 ? 'green' : 'red'
+    }
+
+    function getNodeSize(node) {
+      if (node.type == 0) {
+        return (5 + 2*Math.abs(node.percentchangeinstockprice)).toString()
+      }
+      return '2'
+    }
+
+    drag = simulation => {
+
+    function dragstarted(d) {
+      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+      if (!d3.event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+  }
+
+    var links = svg.append("g")
+      .attr("class", "links")
+      .selectAll("line")
+      .data(links_data)
+      .enter().append("line")
+        .attr("stroke", 'gray')
+        .attr("stroke-width", 0.0)
+
+    var nodes = svg.append("g")
+      .attr("class", "nodes")
+      .selectAll("circle")
+      .data(nodes_data)
+      .enter().append("circle")
+        .attr("r", getNodeSize)
+        .attr("fill", getNodeColor)
+        .on('click', selectNode)
+        .call(drag(simulation))
+
+    var labels = svg.append("g")
+      .attr("class", "text")
+      .selectAll("text")
+      .data(nodes_data)
+      .enter().append("text")
+        .text(function (node) { return  node.id })
+        .attr("font-family", "Roboto")
+    	  .attr("font-size", 10)
+        .attr("color", 'black')
+    	  .attr("dx", 10)
+        .attr("dy", 2)
+
+    simulation.on('tick', () => {
+      nodes
+        .attr('cx', function (node) { return node.x })
+        .attr('cy', function (node) { return node.y })
+      labels
+        .attr('x', function (node) { return node.x })
+        .attr('y', function (node) { return node.y })
+      links
+        .attr('x1', function (link) { return link.source.x })
+        .attr('y1', function (link) { return link.source.y })
+        .attr('x2', function (link) { return link.target.x })
+        .attr('y2', function (link) { return link.target.y })
+    })
+    simulation.force("link").links(links_data)
   })
-  simulation.force("link").links(links_data)
-})
+}
 
 </script>
 </html>
