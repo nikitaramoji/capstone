@@ -14,15 +14,6 @@
 
 <script>
 
-function toggleWinLoss() {
-  var x = document.getElementById("winLossButton");
-  if (x.innerHTML === "Won") {
-    x.innerHTML = "Lost";
-  } else {
-    x.innerHTML = "Won";
-  }
-}
-
 Promise.all([
   d3.csv("data/nodes.csv"),
   d3.csv("data/links.csv"),
@@ -35,6 +26,15 @@ Promise.all([
 
   var svg = d3.select('svg')
   svg.attr('width', width).attr('height', height)
+
+  function toggleWinLoss() {
+    var x = document.getElementById("winLossButton");
+    if (x.innerHTML === "Won") {
+      x.innerHTML = "Lost";
+    } else {
+      x.innerHTML = "Won";
+    }
+  }
 
   var linkForce = d3
     .forceLink()
