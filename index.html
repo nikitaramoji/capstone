@@ -30,6 +30,7 @@ function showData(wonOrLostBoolean) {
   ]).then(function(data) {
     // var nodes_data = data[0]
     var nodes_data = data[0].filter(function(a) { return a.candidatewinlost === wonOrLostBoolean} )
+    console.log(nodes_data.length)
     var links_data = data[1]
 
     var width = window.innerWidth
