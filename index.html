@@ -4,7 +4,7 @@
 
 <body>
 </body>
-<button id="winLossButton" onclick="toggleWinLoss()">Won</button>
+<!-- <button id="winLossButton" onclick="toggleWinLoss()">Won</button> -->
 <svg width="960" height="600">
 </svg>
 <?php Header("Cache-Control: max-age=3000, must-revalidate"); ?>
@@ -12,17 +12,17 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <script>
-function toggleWinLoss() {
-  var x = document.getElementById("winLossButton");
-  if (x.innerHTML === "Won") {
-    x.innerHTML = "Lost";
-    showData(0)
-  } else {
-    x.innerHTML = "Won";
-    showData(1)
-  }
-}
-
+// function toggleWinLoss() {
+//   var x = document.getElementById("winLossButton");
+//   if (x.innerHTML === "Won") {
+//     x.innerHTML = "Lost";
+//     showData(0)
+//   } else {
+//     x.innerHTML = "Won";
+//     showData(1)
+//   }
+// }
+showData(0)
 function showData(wonOrLostBoolean) {
   Promise.all([
     d3.csv("data/nodes.csv"),
