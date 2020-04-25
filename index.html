@@ -45,7 +45,7 @@ Promise.all([
   }
 
   function getLinkWidth(node, link) {
-    return isNeighborLink(node, link) ? '4.0' : '1.0'
+    return isNeighborLink(node, link) ? '1.0' : '0.3'
   }
 
   function selectNode(node) {
@@ -62,9 +62,9 @@ Promise.all([
 
   function getNodeSize(node) {
     if (node.type == 0) {
-      return (5 + 3*Math.abs(node.percentchangeinstockprice)).toString()
+      return (5 + 2*Math.abs(node.percentchangeinstockprice)).toString()
     }
-    return '5'
+    return '2'
   }
 
   drag = simulation => {
