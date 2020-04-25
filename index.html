@@ -12,22 +12,24 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <script>
-
 function toggleWinLoss() {
   var x = document.getElementById("winLossButton");
   if (x.innerHTML === "Won") {
     x.innerHTML = "Lost";
+    showData(0)
   } else {
     x.innerHTML = "Won";
+    showData(1)
   }
 }
 
-function showData() {
+function showData(wonOrLostBoolean) {
   Promise.all([
     d3.csv("data/nodes.csv"),
     d3.csv("data/links.csv"),
   ]).then(function(data) {
-    var nodes_data = data[0]
+    // var nodes_data = data[0]
+    var nodes_data = data[0].filter(function(a) { return a.candidatewinlost === wonOrLostBoolean} )
     var links_data = data[1]
 
     var width = window.innerWidth
@@ -47,7 +49,6 @@ function showData() {
       .force('center', d3.forceCenter(width / 2, height / 2))
 
     function isNeighborLink(node, link) {
-      //todo fix
       return (link.target.id == node.id || link.source.id == node.id)
     }
 
@@ -69,8 +70,10 @@ function showData() {
     function getNodeSize(node) {
       if (node.type == 0) {
         return (5 + 2*Math.abs(node.percentchangeinstockprice)).toString()
+      } else if (node.candidatewinlost === wonOrLostBoolean) {
+        return '2'
       }
-      return '2'
+      return '0'
     }
 
     drag = simulation => {
@@ -104,7 +107,7 @@ function showData() {
       .data(links_data)
       .enter().append("line")
         .attr("stroke", 'gray')
-        .attr("stroke-width", 0.0)
+        .attr("stroke-width", 0.1)
 
     var nodes = svg.append("g")
       .attr("class", "nodes")
