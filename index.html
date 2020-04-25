@@ -58,10 +58,8 @@ Promise.all([
   function getNodeSize(node) {
     if (node.type == 0) {
       return (5 + 2*Math.abs(node.percentchangeinstockprice)).toString()
-    } else if (node.candidatewinlost === wonOrLostBoolean) {
-      return '2'
     }
-    return '0'
+    return '2'
   }
 
   drag = simulation => {
