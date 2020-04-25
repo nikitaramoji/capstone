@@ -28,8 +28,7 @@ function showData(wonOrLostBoolean) {
     d3.csv("data/nodes.csv"),
     d3.csv("data/links.csv"),
   ]).then(function(data) {
-    // var nodes_data = data[0]
-    var nodes_data = data[0].filter(function(a) { return a.candidatewinlost === wonOrLostBoolean} )
+    var nodes_data = data[0]
     console.log(nodes_data.length)
     var links_data = data[1]
 
