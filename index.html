@@ -36,15 +36,29 @@ Promise.all([
     .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2))
 
-  function isNeighborLink(node, link) {
-    return (link.target.id == node.id || link.source.id == node.id)
+  function getNeighborNodes(node) {
+    var neighbors = [node.id]
+    for (l in links_data) {
+      if (l.target.id === node.id) {
+        neighbors.push(l.source.id)
+      } else if (l.source.id === node.id) {
+        neighbors.push(l.target.id)
+      }
+    }
+    return neighbors
   }
 
   function getLinkWidth(node, link) {
-    return isNeighborLink(node, link) ? '0.3' : '0.0'
+    return (link.target.id == node.id || link.source.id == node.id) ? '0.3' : '0.0'
+  }
+
+  function getNeighborVisibility(node, neighbors) {
+    return neighbors.includes(node.id) ? 'visible' : 'hidden'
   }
 
   function selectNode(node) {
+    neighbors = getNeighborNodes(node)
+    nodes.attr('visibility', function (n) { return getNeighborVisibility(n, neighbors) })
     links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
   }
 
