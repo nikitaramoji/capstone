@@ -27,10 +27,6 @@ Promise.all([
   var svg = d3.select('svg')
   svg.attr('width', width).attr('height', height)
 
-  var linkForce = d3
-    .forceLink()
-    .id(function (link) { return link.id })
-
   var simulation = d3
     .forceSimulation(nodes_data)
     .force('link', d3.forceLink().id(function (link) { return link.id }))
