@@ -45,10 +45,6 @@ Promise.all([
     return neighbors
   }
 
-  function getLinkWidth(node, link) {
-    return (link.target.id == node.id || link.source.id == node.id) ? '0.3' : '0.0'
-  }
-
   function selectNode(node) {
     d3.select("svg")
       .select("text")
@@ -56,10 +52,8 @@ Promise.all([
       .text(node.id)
     neighbors = getNeighborNodes(node)
     nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
-    labels.attr('visibility', function (label) {
-      return (neighbors.includes(label.id) ? 'visible' : 'hidden')
-    })
-    links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
+    labels.attr('visibility', function (label) { return (neighbors.includes(label.id) ? 'visible' : 'hidden') })
+    links.attr('stroke-width', function (link) { return (link.target.id == node.id || link.source.id == node.id ? '0.3' : '0.0') })
   }
 
   function getNodeColor(node) {
@@ -75,31 +69,6 @@ Promise.all([
     }
     return '2'
   }
-
-  drag = simulation => {
-
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-
-  function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  }
-
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
-
-  return d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
-}
 
   var links = svg.append("g")
     .attr("class", "links")
@@ -117,7 +86,6 @@ Promise.all([
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
       .on('mouseover', selectNode)
-      .call(drag(simulation))
 
   var labels = svg.append("g")
     .attr("class", "text")
