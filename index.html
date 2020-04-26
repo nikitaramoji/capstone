@@ -58,7 +58,7 @@ Promise.all([
     nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
     labels.attr('visibility', function (label) {
       console.log(label)
-      return (neighbors.includes(label.text) ? 'visible' : 'hidden')
+      return (neighbors.includes(label.id) ? 'visible' : 'hidden')
     })
     links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
   }
