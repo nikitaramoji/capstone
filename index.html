@@ -38,7 +38,7 @@ Promise.all([
 
   function getNeighborNodes(node) {
     var neighbors = [node.id]
-    for (link of links) {
+    for (link of links_data) {
       console.log(link, link.target, link.source)
       if (link.target == node.id) {
         neighbors.push(link.source)
