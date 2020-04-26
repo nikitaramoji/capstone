@@ -39,11 +39,11 @@ Promise.all([
   function getNeighborNodes(node) {
     var neighbors = [node.id]
     for (link in links) {
-      console.log(l, l.target, l.source)
-      if (l.target == node.id) {
-        neighbors.push(l.source)
-      } else if (l.source == node.id) {
-        neighbors.push(l.target)
+      console.log(link, link.target, link.source)
+      if (link.target == node.id) {
+        neighbors.push(link.source)
+      } else if (link.source == node.id) {
+        neighbors.push(link.target)
       }
     }
     return neighbors
