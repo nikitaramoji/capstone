@@ -58,6 +58,7 @@ Promise.all([
 
   function selectNode(node) {
     neighbors = getNeighborNodes(node)
+    console.log(neighbors)
     nodes.attr('visibility', function (n) { return getNeighborVisibility(n, neighbors) })
     links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
   }
