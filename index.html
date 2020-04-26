@@ -37,12 +37,11 @@ Promise.all([
     .force('center', d3.forceCenter(width / 2, height / 2))
 
   function getNeighborNodes(node) {
-    var neighbors = [node.id]
+    var neighbors = [node]
     for (link of links_data) {
-      console.log(link, link.target, link.source)
-      if (link.target == node.id) {
+      if (link.target.id == node.id) {
         neighbors.push(link.source)
-      } else if (link.source == node.id) {
+      } else if (link.source.id == node.id) {
         neighbors.push(link.target)
       }
     }
@@ -54,13 +53,15 @@ Promise.all([
   }
 
   function getNeighborVisibility(node, neighbors) {
-    return neighbors.includes(node.id) ? 'visible' : 'hidden'
+
+    return neighbors.includes(node) ? 'visible' : 'hidden'
   }
 
   function selectNode(node) {
     neighbors = getNeighborNodes(node)
-    console.log(neighbors)
-    nodes.attr('visibility', function (n) { return getNeighborVisibility(n, neighbors) })
+    console.log(neighbors.id)
+    nodes.attr('visibility', 'hidden')
+    neighbors.attr('visibility, 'visible)
     links.attr('stroke-width', function (link) { return getLinkWidth(node, link) })
   }
 
