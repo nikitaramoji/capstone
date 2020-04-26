@@ -119,26 +119,26 @@ Promise.all([
       .attr("fill", getNodeColor)
       .on('click', selectNode)
       .call(drag(simulation))
-
-  var labels = svg.append("g")
-    .attr("class", "text")
-    .selectAll("text")
-    .data(nodes_data)
-    .enter().append("text")
-      .text(function (node) { return  node.id })
-      .attr("font-family", "Roboto")
-      .attr("font-size", 10)
-      .attr("color", 'black')
-      .attr("dx", 10)
-      .attr("dy", 2)
+  //
+  // var labels = svg.append("g")
+  //   .attr("class", "text")
+  //   .selectAll("text")
+  //   .data(nodes_data)
+  //   .enter().append("text")
+  //     .text(function (node) { return  node.id })
+  //     .attr("font-family", "Roboto")
+  //     .attr("font-size", 10)
+  //     .attr("color", 'black')
+  //     .attr("dx", 10)
+  //     .attr("dy", 2)
 
   simulation.on('tick', () => {
     nodes
       .attr('cx', function (node) { return node.x })
       .attr('cy', function (node) { return node.y })
-    labels
-      .attr('x', function (node) { return node.x })
-      .attr('y', function (node) { return node.y })
+    // labels
+    //   .attr('x', function (node) { return node.x })
+    //   .attr('y', function (node) { return node.y })
     links
       .attr('x1', function (link) { return link.source.x })
       .attr('y1', function (link) { return link.source.y })
