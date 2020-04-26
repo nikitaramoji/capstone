@@ -20,7 +20,6 @@ Promise.all([
   d3.csv("data/links.csv"),
 ]).then(function(data) {
   var nodes_data = data[0]
-  console.log(nodes_data.length)
   var links_data = data[1]
 
   var width = window.innerWidth
@@ -56,9 +55,8 @@ Promise.all([
   }
 
   function selectNode(node) {
-
     d3.select("svg")
-      .select("text")
+      .select('Selected')
       .text(node.id)
     neighbors = getNeighborNodes(node)
     nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
