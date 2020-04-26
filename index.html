@@ -8,7 +8,7 @@
 </body>
 <!-- <button id="winLossButton" onclick="toggleWinLoss()">Won</button> -->
 <svg width="960" height="600">
-  <text x="50" y="20" text-anchor="middle" fill="black" class="Selected">No Node Selected Yet!</text>
+  <text x="100" y="20" text-anchor="middle" fill="black" class="Selected">No Node Selected Yet!</text>
 </svg>
 <?php Header("Cache-Control: max-age=3000, must-revalidate"); ?>
 
@@ -56,7 +56,8 @@ Promise.all([
 
   function selectNode(node) {
     d3.select("svg")
-      .select('Selected')
+      .selectAll("text")
+      .select("Selected")
       .text(node.id)
     neighbors = getNeighborNodes(node)
     nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
