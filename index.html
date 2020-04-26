@@ -56,8 +56,8 @@ Promise.all([
 
   function selectNode(node) {
     d3.select("svg")
-      .selectAll("text")
-      .select("Selected")
+      .select("text")
+      .classed("Selected", true)
       .text(node.id)
     neighbors = getNeighborNodes(node)
     nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
