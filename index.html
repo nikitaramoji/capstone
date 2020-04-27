@@ -19,7 +19,7 @@
 <script>
 var selectedNode="No Node Selected Yet!"
 function submitUserInput() {
-  selectedNode = getElementById('user_input').value
+  selectedNode = document.getElementById('user_input').value
   try {
     console.log(selectedNode)
     selectNode(selectedNode)
