@@ -6,7 +6,7 @@
 
 <body>
 </body>
-<svg width="960" height="600">
+<svg width="800" height="500">
   <text x="100" y="20" font-family="Roboto" text-anchor="middle" fill="black" class="Selected">No Node Selected Yet!</text>
   <label x="100" y="50" for="lname">Stock Code or Representative Name (Last Name, First Name)</label>
   <input x="100" y="60" type="text" id="user_input" name="user_input">
@@ -28,9 +28,6 @@ Promise.all([
 
   var svg = d3.select('svg')
   svg.attr('width', width).attr('height', height)
-
-  var x = document.createElement("INPUT");
-  x.setAttribute("type", "text");
 
   var simulation = d3
     .forceSimulation(nodes_data)
