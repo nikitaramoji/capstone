@@ -17,17 +17,6 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <script>
-function submitUserInput() {
-  selectedNode = document.getElementById('user_input').value
-  try {
-    console.log(selectedNode)
-    selectNode(selectedNode)
-  }
-  catch (err) {
-    console.log(err)
-    alert("Sorry, that is not a valid node.");
-  }
-}
 Promise.all([
   d3.csv("data/nodes.csv"),
   d3.csv("data/links.csv"),
@@ -46,6 +35,18 @@ Promise.all([
     .force('link', d3.forceLink().id(function (link) { return link.id }))
     .force('charge', d3.forceManyBody().strength(-30))
     .force('center', d3.forceCenter(width / 2, height / 2))
+
+  function submitUserInput() {
+    selectedNode = document.getElementById('user_input').value
+    try {
+      console.log(selectedNode)
+      selectNode(selectedNode)
+    }
+    catch (err) {
+      console.log(err)
+      alert("Sorry, that is not a valid node.");
+    }
+  }
 
   function getNeighborNodes(node) {
     var neighbors = [node]
