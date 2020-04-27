@@ -6,9 +6,11 @@
 
 <body>
 </body>
-<!-- <button id="winLossButton" onclick="toggleWinLoss()">Won</button> -->
 <svg width="960" height="600">
   <text x="100" y="20" font-family="Roboto" text-anchor="middle" fill="black" class="Selected">No Node Selected Yet!</text>
+  <label for="lname">Stock Code or Representative Name (Last Name, First Name)</label><br>
+  <input type="text" id="user_input" name="user_input"><br><br>
+  <input type="submit" value="Submit">
 </svg>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -26,6 +28,9 @@ Promise.all([
 
   var svg = d3.select('svg')
   svg.attr('width', width).attr('height', height)
+
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "text");
 
   var simulation = d3
     .forceSimulation(nodes_data)
