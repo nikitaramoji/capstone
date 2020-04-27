@@ -66,14 +66,24 @@ Promise.all([
   }
 
   function selectNode(node_id) {
-    d3.select("svg")
-      .select("text")
-      .classed("Selected", true)
-      .text(node_id)
-    neighbors = getNeighborNodes(node_id)
-    nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
-    labels.attr('visibility', function (label) { return (neighbors.includes(label.id) ? 'visible' : 'hidden') })
-    links.attr('stroke-width', function (link) { return (link.target.id == node_id || link.source.id == node_id ? '0.3' : '0.0') })
+    var nodeExists = false
+    for (n of nodes) {
+      if (node_id == n.id) {
+        nodeExists = true
+      }
+    }
+    if(nodeExists) {
+      d3.select("svg")
+        .select("text")
+        .classed("Selected", true)
+        .text(node_id)
+      neighbors = getNeighborNodes(node_id)
+      nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
+      labels.attr('visibility', function (label) { return (neighbors.includes(label.id) ? 'visible' : 'hidden') })
+      links.attr('stroke-width', function (link) { return (link.target.id == node_id || link.source.id == node_id ? '0.3' : '0.0') })
+    } else {
+      alert("Sorry, that is not a valid node.");
+    }
   }
 
   function getNodeColor(node) {
