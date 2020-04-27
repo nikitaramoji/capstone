@@ -59,6 +59,10 @@ Promise.all([
     return neighbors
   }
 
+  selectNodeHelper(node) {
+    selectNode(node.id)
+  }
+
   function selectNode(node_id) {
     d3.select("svg")
       .select("text")
@@ -99,7 +103,7 @@ Promise.all([
     .enter().append("circle")
       .attr("r", getNodeSize)
       .attr("fill", getNodeColor)
-      .on('mouseover', selectNode)
+      .on('mouseover', selectNodeHelper)
 
   var labels = svg.append("g")
     .attr("class", "text")
