@@ -8,22 +8,27 @@
 <div>
   <text x="110" y="50" font-family="Roboto" font-size="5" for="user_input">Stock Code or Representative (Last Name, First Name)</text>
   <input x="110" y="60" type="text" id="user_input" name="user_input">
-  <button type="button">Submit</button>
+  <button type="button" onclick="submitUserInput()">Submit</button>
 </div>
 <svg width="500" height="300">
   <text x="110" y="20" font-family="Roboto" text-anchor="middle" fill="black" class="Selected">No Node Selected Yet!</text>
-  <!-- <foreignObject x="10" y="30" width="200" height="150">
-    <div>
-      <text x="110" y="50" font-family="Roboto" font-size="5" for="user_input">Stock Code or Representative (Last Name, First Name)</text>
-      <input x="110" y="60" type="text" id="user_input" name="user_input">
-      <button type="button">Submit</button>
-    </div>
-</foreignObject> -->
 </svg>
 </body>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <script>
+var selectedNode="No Node Selected Yet!"
+function submitUserInput() {
+  selectedNode = getElementById('user_input').value
+  try {
+    console.log(selectedNode)
+    selectNode(selectedNode)
+  }
+  catch (err) {
+    console.log(err)
+    adddlert("Sorry, that is not a valid node.");
+  }
+}
 Promise.all([
   d3.csv("data/nodes.csv"),
   d3.csv("data/links.csv"),
@@ -44,26 +49,26 @@ Promise.all([
     .force('center', d3.forceCenter(width / 2, height / 2))
 
   function getNeighborNodes(node) {
-    var neighbors = [node.id]
+    var neighbors = [node]
     for (link of links_data) {
-      if (link.target.id == node.id) {
+      if (link.target.id == node) {
         neighbors.push(link.source.id)
-      } else if (link.source.id == node.id) {
+      } else if (link.source.id == node) {
         neighbors.push(link.target.id)
       }
     }
     return neighbors
   }
 
-  function selectNode(node) {
+  function selectNode(node_id) {
     d3.select("svg")
       .select("text")
       .classed("Selected", true)
-      .text(node.id)
-    neighbors = getNeighborNodes(node)
-    nodes.attr('visibility', function (node) { return (neighbors.includes(node.id) ? 'visible' : 'hidden') })
+      .text(node_id)
+    neighbors = getNeighborNodes(node_id)
+    nodes.attr('visibility', function (node) { return (neighbors.includes(node_id) ? 'visible' : 'hidden') })
     labels.attr('visibility', function (label) { return (neighbors.includes(label.id) ? 'visible' : 'hidden') })
-    links.attr('stroke-width', function (link) { return (link.target.id == node.id || link.source.id == node.id ? '0.3' : '0.0') })
+    links.attr('stroke-width', function (link) { return (link.target.id == node_id || link.source.id == node_id ? '0.3' : '0.0') })
   }
 
   function getNodeColor(node) {
