@@ -9,6 +9,7 @@
   <text x="110" y="50" font-family="Roboto" font-size="5" for="user_input">Stock Code or Representative (Last Name, First Name)</text>
   <input x="110" y="60" type="text" id="user_input" name="user_input">
   <button type="button" onclick="submitUserInput()">Submit</button>
+  <button type="button" onclick="giveLegend()">Info</button>
 </div>
 <svg width="500" height="300">
   <text x="110" y="20" font-family="Roboto" text-anchor="middle" fill="black" class="Selected">No Node Selected Yet!</text>
@@ -18,6 +19,17 @@
 
 <script>
 let submitUserInput;
+
+function giveLegend() {
+  alert("This visualization showcases the relationship in 2016 between S&P 500 companies and the representatives they donate to.\n
+  The blue nodes represent companies with a percentage increase in their stock price post-election, and the yellow indicates
+  a percentage decrease in their stock price post-election. The size of the blue and yellow nodes correlates to the magnitude
+  of a company's change in stock price. The representatives nodes are red if the candidate lost and green if they won. In order
+  to interact with this visualization, you can either hover over a node to see everyone who either the company donated to or who
+  a representative received donations from. Alternatively, you can enter a stock code or a representative name into the
+  search bar to see the visualization for that node.");
+}
+
 Promise.all([
   d3.csv("data/nodes.csv"),
   d3.csv("data/links.csv"),
